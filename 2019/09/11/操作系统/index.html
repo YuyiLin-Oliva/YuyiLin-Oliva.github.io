@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":true,"show_result":true,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="操作系统知识点 fork过程（字节）父进程fork一个子进程，子进程申请4k的内存，它们的内存分布（360）  进程与线程，死锁和内存管理 包括进程与线程的概念与区别，进程控制，进程同步，进程通信等问题；死锁面试基本都会问，但是内容不多，主要围绕是什么，为什么，怎么办三个方面；内存管理主要是段页式存储，虚拟内存，页面置换等方面    进程的三种状态，就绪有哪些  （360）   IO多路复用、阻塞">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统">
+<meta property="og:url" content="http://yoursite.com/2019/09/11/操作系统/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="操作系统知识点 fork过程（字节）父进程fork一个子进程，子进程申请4k的内存，它们的内存分布（360）  进程与线程，死锁和内存管理 包括进程与线程的概念与区别，进程控制，进程同步，进程通信等问题；死锁面试基本都会问，但是内容不多，主要围绕是什么，为什么，怎么办三个方面；内存管理主要是段页式存储，虚拟内存，页面置换等方面    进程的三种状态，就绪有哪些  （360）   IO多路复用、阻塞">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-05-03T14:00:48.831Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="操作系统">
+<meta name="twitter:description" content="操作系统知识点 fork过程（字节）父进程fork一个子进程，子进程申请4k的内存，它们的内存分布（360）  进程与线程，死锁和内存管理 包括进程与线程的概念与区别，进程控制，进程同步，进程通信等问题；死锁面试基本都会问，但是内容不多，主要围绕是什么，为什么，怎么办三个方面；内存管理主要是段页式存储，虚拟内存，页面置换等方面    进程的三种状态，就绪有哪些  （360）   IO多路复用、阻塞">
+  <link rel="canonical" href="http://yoursite.com/2019/09/11/操作系统/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>操作系统 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <link rel="stylesheet" href="/dist/css/share.min.css">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Olivia学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/11/操作系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Olivia_lyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/myavatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">操作系统
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-11 09:41:48" itemprop="dateCreated datePublished" datetime="2019-09-11T09:41:48+08:00">2019-09-11</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-03 22:00:48" itemprop="dateModified" datetime="2020-05-03T22:00:48+08:00">2020-05-03</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="操作系统知识点"><a href="#操作系统知识点" class="headerlink" title="操作系统知识点"></a>操作系统知识点</h3><ol>
+<li><p>fork过程（字节）父进程fork一个子进程，子进程申请4k的内存，它们的内存分布（360）</p>
+</li>
+<li><p>进程与线程，死锁和内存管理</p>
+<p>包括进程与线程的概念与区别，进程控制，进程同步，进程通信等问题；死锁面试基本都会问，但是内容不多，主要围绕是什么，为什么，怎么办三个方面；内存管理主要是段页式存储，虚拟内存，页面置换等方面  </p>
+<ul>
+<li>进程的三种状态，就绪有哪些  （360）</li>
+</ul>
+</li>
+<li><p>IO多路复用、阻塞与非阻塞、异步与同步、ET与LT的区别，需要注意什么、内存管理(为什么虚拟内存开2倍)    堆和栈（怎么设计一个效率高的内存分配）</p>
+</li>
+<li><p>如何查看内存空间？如何查看磁盘空间？(free; df -h)   查看系统各种属性的命令，出现频率最高的前十个IP的命令等</p>
+</li>
+<li><p>如何查看进程？(ps aux)  管道命令如何实现 （阿里）</p>
+</li>
+<li><p>一个文件”ip.txt”，有两个字段ip(第一列)和访问时间(第二列)，找出访问次数最多的ip；</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk '&#123;ips[$<span class="number">1</span>]++;&#125; END &#123;for(ip in ips) printf(<span class="string">"%s<span class="subst">\t</span>%d<span class="subst">\n</span>"</span>,ip, ips[ip])&#125;' ip.txt | sort -n -k <span class="number">2</span> -r | head -n <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>道题主要考察了awk, sort, head和管道命令的运用，值得注意，另外还有像统计词频，杀死指定进程等也经常考察)</p>
+<ul>
+<li><p>写脚本杀死指定名称的进程：</p>
+<p>ps aux | grep ${processName} | grep -v grep | awk ‘{print $2}’ | xargs kill -s 9 </p>
+<p>xargs命令是用来把前面命令的输出结果（PID）作为“kill -s 9”命令的参数，并执行该命令。</p>
+</li>
+</ul>
+</li>
+<li><p>IO高并发如何实现？为什么进程的切换开销比线程大？(美团)</p>
+</li>
+<li><p>信号量机制；(整型、记录型、AND型、信号量集)  锁机制；(互斥锁、自旋锁) （拼多多）</p>
+</li>
+<li><p>cache一致性； 虚拟内存与物理内存的区别 ； 游戏中常用的计算机图形学和随机洗牌算法，可以用rand()函数；C++变成可执行文件的过程； （网易互娱）</p>
+</li>
+<li><p>操作系统中编译和链接是什么；系统调用和用户调用 （多益网络）</p>
+</li>
+<li><p>（阿里云）</p>
+<ul>
+<li><p>文件读经历了哪些过程</p>
+</li>
+<li><p>Zero Copy的实现机制 </p>
+</li>
+<li><p>给个高配物理机，Redis不足以完全发挥性能优势，怎么办  </p>
+</li>
+<li><p>有哪些死锁避免的解决方法  </p>
+</li>
+<li><p>在交易系统中如何避免死锁，提高性能   参考方案：<a href="https://blog.csdn.net/claram/article/details/77853472" target="_blank" rel="noopener">https://blog.csdn.net/claram/article/details/77853472</a>  </p>
+</li>
+<li><p>对于大文件，为什么CP比MV慢很多</p>
+</li>
+<li><p>哪些时候会发生上下文切换，上下文切换过程中经历了什么</p>
+</li>
+<li><p>如果父进程没有调用wait、waitpid，怎么杀死僵尸进程</p>
+</li>
+<li><p>如果rm以及rm -f一个正在被使用的文件，会发生什么</p>
+</li>
+</ul>
+</li>
+<li><p>进程什么时候由用户态转化为内核态？(系统调用、中断、陷入) （旷世）</p>
+<p>内核态与用户态的区别/安全性 （远景）</p>
+<p>CPU调度方式； 写时复制 （360）</p>
+</li>
+<li><p>（腾讯）</p>
+<p>Linux进程调度算法<br>Linux进程地址空间分布<br>Linux内存管理方法，页面置换算法，逻辑地址和物理地址的转换<br>在一台内存为2G的机器上，malloc(20G)会怎么样？new 20G呢？</p>
+<p>解释孤儿进程，僵死进程，惊群效应</p>
+</li>
+<li><p><a href="https://blog.csdn.net/wangqingchuan92/article/details/79666885" target="_blank" rel="noopener">linux netcat</a>   cf: <a href="https://www.cnblogs.com/ggjucheng/archive/2012/01/14/2322659.html" target="_blank" rel="noopener">tcpdump</a>  命令行抓包 、<a href="https://www.cnblogs.com/kingsonfu/p/9779205.html" target="_blank" rel="noopener">telnet</a> 远程登录</p>
+</li>
+<li><p><a href="https://baike.baidu.com/item/PCB/16067368?fr=aladdin" target="_blank" rel="noopener">PCB进程管理块</a>   <a href="https://www.cnblogs.com/wanghetao/archive/2012/03/29/2422723.html" target="_blank" rel="noopener">linux的0号和1号进程</a>    <a href="https://blog.csdn.net/armlinuxww/article/details/92803381" target="_blank" rel="noopener">epoll原理解析</a> <a href="https://blog.csdn.net/qq_33611327/article/details/81738195" target="_blank" rel="noopener">mmap</a>   <a href="https://blog.csdn.net/zhaobryant/article/details/80557262" target="_blank" rel="noopener">epoll源码分析</a> </p>
+<p><a href="https://www.cnblogs.com/liugh-wait/p/8533003.html" target="_blank" rel="noopener">进程间通信方式</a>   </p>
+</li>
+<li><ul>
+<li><p>mkdir 文件夹，git init，把这个目录变成Git可以管理的仓库</p>
+</li>
+<li><p>添加文件到Git仓库，分两步：</p>
+</li>
+</ul>
+<ol>
+<li>使用命令<code>git add &lt;file&gt;</code>，注意，可反复多次使用，添加多个文件；</li>
+<li>使用命令<code>git commit -m &lt;message&gt;</code>，完成。</li>
+</ol>
+<ul>
+<li><p>要随时掌握工作区的状态，使用<code>git status</code>命令。</p>
+<p>如果<code>git status</code>告诉你有文件被修改过，用<code>git diff</code>可以查看修改内容。</p>
+</li>
+<li><p><code>HEAD</code>指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令<code>git reset --hard commit_id</code>。</p>
+<p>穿梭前，用<code>git log</code>可以查看提交历史，以便确定要回退到哪个版本。</p>
+<p>要重返未来，用<code>git reflog</code>查看命令历史，以便确定要回到未来的哪个版本。</p>
+</li>
+<li><p>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令<code>git checkout -- file</code>。</p>
+<p>场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令<code>git reset HEAD &lt;file&gt;</code>，就回到了场景1，第二步按场景1操作。</p>
+<p>场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考<a href="https://www.liaoxuefeng.com/wiki/896043488029600/897013573512192" target="_blank" rel="noopener">版本回退</a>一节，不过前提是没有推送到远程库。</p>
+</li>
+<li><p>命令<code>git rm</code>用于删除一个文件。如果一个文件已经被提交到版本库，那么你永远不用担心误删，<code>git checkout</code>其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。但是要小心，你只能恢复文件到最新版本，你会丢失<strong>最近一次提交后你修改的内容</strong>。</p>
+</li>
+<li><p>要关联一个远程库，使用命令<code>git remote add origin git@server-name:path/repo-name.git</code>；</p>
+<p>关联后，使用命令<code>git push -u origin master</code>第一次推送master分支的所有内容；</p>
+<p>此后，每次本地提交后，只要有必要，就可以使用命令<code>git push origin master</code>推送最新修改；</p>
+</li>
+<li><p>要克隆一个仓库，首先必须知道仓库的地址，然后使用<code>git clone</code>命令克隆。</p>
+<p>Git支持多种协议，包括<code>https</code>，但通过<code>ssh</code>支持的原生<code>git</code>协议速度最快。</p>
+</li>
+<li><p>Git鼓励大量使用分支：</p>
+<p>查看分支：<code>git branch</code></p>
+<p>创建分支：<code>git branch &lt;name&gt;</code></p>
+<p>切换分支：<code>git checkout &lt;name&gt;</code>或者<code>git switch &lt;name&gt;</code></p>
+<p>创建+切换分支：<code>git checkout -b &lt;name&gt;</code>或者<code>git switch -c &lt;name&gt;</code></p>
+<p>合并某分支到当前分支：<code>git merge &lt;name&gt;</code></p>
+<p>删除分支：<code>git branch -d &lt;name&gt;</code></p>
+<p>用<code>git log --graph</code>命令可以看到分支合并图。</p>
+<ul>
+<li>git log –graph –pretty=oneline –abbrev-commit</li>
+</ul>
+<p>合并分支时，加上<code>--no-ff</code>参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而<code>fast forward</code>合并就看不出来曾经做过合并。</p>
+<p>如果要丢弃一个没有被合并过的分支，可以通过<code>git branch -D &lt;name&gt;</code>强行删除。</p>
+</li>
+<li><p>修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；</p>
+<p>当手头工作没有完成时，先把工作现场<code>git stash</code>一下，然后去修复bug，修复后，再<code>git stash pop</code>，回到工作现场；</p>
+<p>在master分支上修复的bug，想要合并到当前dev分支，可以用<code>git cherry-pick &lt;commit&gt;</code>命令，把bug提交的修改“复制”到当前分支，避免重复劳动。</p>
+</li>
+<li><p>查看远程库信息，使用<code>git remote -v</code>；</p>
+<p>本地新建的分支如果不推送到远程，对其他人就是不可见的；</p>
+<p>从本地推送分支，使用<code>git push origin branch-name</code>，如果推送失败，先用<code>git pull</code>抓取远程的新提交；</p>
+<p>在本地创建和远程分支对应的分支，使用<code>git checkout -b branch-name origin/branch-name</code>，本地和远程分支的名称最好一致；</p>
+<p>建立本地分支和远程分支的关联，使用<code>git branch --set-upstream branch-name origin/branch-name</code>；</p>
+<p>从远程抓取分支，使用<code>git pull</code>，如果有冲突，要先处理冲突。</p>
+</li>
+<li><p>命令<code>git tag &lt;tagname&gt;</code>用于新建一个标签，默认为<code>HEAD</code>，也可以指定一个commit id；</p>
+<p>命令<code>git tag -a &lt;tagname&gt; -m &quot;blablabla...&quot;</code>可以指定标签信息；</p>
+<p>命令<code>git tag</code>可以查看所有标签。</p>
+<p>命令<code>git push origin &lt;tagname&gt;</code>可以推送一个本地标签；</p>
+<p>命令<code>git push origin --tags</code>可以推送全部未推送过的本地标签；</p>
+<p>命令<code>git tag -d &lt;tagname&gt;</code>可以删除一个本地标签；</p>
+<p>命令<code>git push origin :refs/tags/&lt;tagname&gt;</code>可以删除一个远程标签。</p>
+</li>
+<li><p>在GitHub上，可以任意Fork开源仓库；</p>
+<p>自己拥有Fork后的仓库的读写权限；</p>
+<p>可以推送pull request给官方仓库来贡献代码。</p>
+<ul>
+<li>alias  配置别名</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>操作系统内存池 <a href="https://blog.csdn.net/forever5312/article/details/78029672" target="_blank" rel="noopener">参考</a>       <a href="https://blog.csdn.net/qq_15437629/article/details/79304190" target="_blank" rel="noopener">虚拟内存、页面置换算法</a> </p>
+</li>
+<li><p><a href="https://blog.csdn.net/bad_sheep/article/details/6157738" target="_blank" rel="noopener">tcp优雅关闭</a>，主动关闭TCP连接shutdown，被动触发关闭close</p>
+</li>
+<li><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">题目：</span><br><span class="line">    如何减少换页错误：</span><br><span class="line">    A. 进程倾向于占用CPU</span><br><span class="line">    B. 访问局部性（locality <span class="keyword">of</span> <span class="keyword">reference</span>）满足进程要求</span><br><span class="line">    C. 进程倾向于占用I/O</span><br><span class="line">    D. 使用基于最短剩余时间（shortest remaining <span class="built_in">time</span>）的调度机制</span><br><span class="line"></span><br><span class="line">答案：</span><br><span class="line">    B</span><br><span class="line"></span><br><span class="line">解答：</span><br><span class="line">    <span class="number">1.</span> 换页错误又称缺页错误，当一个程序试图访问没有映射到物理内存的地方时，就会出现缺页错误。</span><br><span class="line">    <span class="number">2.</span> 减少缺页发生的方法：</span><br><span class="line">        增加作业分配的内存块数。</span><br><span class="line">        增加页面大小。</span><br><span class="line">        页面替换算法。</span><br><span class="line">        程序满足局部性原理。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>协程       <a href="https://blog.csdn.net/qq_28114615/article/details/97929524" target="_blank" rel="noopener">进程间通信-eventfd</a>   <a href="https://blog.csdn.net/a_tu_/article/details/80325645" target="_blank" rel="noopener">eventfd2</a>       <a href="https://www.cnblogs.com/songgj/p/9115954.html" target="_blank" rel="noopener">软链接和硬链接</a>    <a href="https://blog.csdn.net/hd12370/article/details/82814348" target="_blank" rel="noopener">死锁</a>  </p>
+</li>
+</ol>
+<p>​       <a href="https://blog.csdn.net/inuyashaw/article/details/55095545?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task" target="_blank" rel="noopener">linux下查看多线程命令</a>   </p>
+<p><a href="https://www.cnblogs.com/felixwa/p/5899699.html" target="_blank" rel="noopener">linux修改内存缓冲区</a><br><a href="https://www.cnblogs.com/ultranms/p/9254160.html" target="_blank" rel="noopener">linux下free命令详解</a></p>
+<p>查看linux文件系统类型：</p>
+<p>df 命令是用来查看文件系来统磁盘空间使用量自的。但df 命令只会列出已挂载百的文件系统信息，对于没有挂载的文件系统是查看不到的。使用这个命令可以很方便的查看已挂载的文件系统的空间使用量、剩余空间大小等信度息。</p>
+<p>同时，parted命令也可以查看linux文件类型。parted命令就比较强大了，用parted命令可以对大于2TB的磁盘设备进行分区，以及创建GPT分区（而fdisk命令就办不到了）。如果要查看 /dev/sda 各分区的文件系统类型，可以按照以下步骤来查看：（主要是print list命令） parted /dev/sda (parted) print list</p>
+<p><a href="https://www.cnblogs.com/xiexj/p/7214502.html" target="_blank" rel="noopener">linux文件系统 inode理解</a>  <a href="https://www.cnblogs.com/aaronLinux/p/5744597.html" target="_blank" rel="noopener">linux文件系统简介</a> </p>
+
+    </div>
+
+    
+    
+    
+      
+
+        
+      
+
+      <div>
+        
+          <div>
+    
+        <div style="text-align:centor;color: #ccc;font-size:14px;">----------------------------------------------------             本文结束 <i class="fa fa-heart"></i>  感谢您的阅读                  -------------------------------------------------</div>
+    
+</div>
+        
+      </div>
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/08/01/面经汇总/" rel="next" title="面经题目汇总">
+                  <i class="fa fa-chevron-left"></i> 面经题目汇总
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/09/11/算法与数据结构/" rel="prev" title="算法与数据结构">
+                  算法与数据结构 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+  <div class="post-spread">
+    
+      <div data-weibo-title="分享到微博" data-qq-title="分享到QQ" data-douban-title="分享到豆瓣" class="social-share" class="share-component" data-disabled="twitter,facebook" data-description="Share.js - 一键分享到微博，QQ空间，腾讯微博，人人，豆瓣">分享到：</div>
+    
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/myavatar.jpg"
+      alt="Olivia_lyy">
+  <p class="site-author-name" itemprop="name">Olivia_lyy</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/YuyiLin-Oliva" title="GitHub &rarr; https://github.com/YuyiLin-Oliva" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#操作系统知识点"><span class="nav-number">1.</span> <span class="nav-text">操作系统知识点</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Olivia_lyy</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+  <script src="/live2d-widget-master/autoload.js"></script>
+  <script src="/dist/js/social-share.min.js"></script>
+</body>
+</html>

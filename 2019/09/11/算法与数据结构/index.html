@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":true,"show_result":true,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="算法与数据结构​    有的面试会复盘笔试题  哈希表(哈希冲突)（OPPO）链表排序  括号匹配（字节） 括号生成：回溯 （远景）  排序算法（OPPO)   堆排序，并分析时间复杂度/建堆+调整（美团/头条）冒泡算法（阿里） 桶排序和跳跃表排序（多益网络）初始化建堆的时间复杂度为O(n)，排序重建堆的时间复杂度为nlog(n)，所以总的时间复杂度为O(n+nlogn)=O(nlogn)。另外堆">
+<meta name="keywords" content="算法与数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法与数据结构">
+<meta property="og:url" content="http://yoursite.com/2019/09/11/算法与数据结构/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="算法与数据结构​    有的面试会复盘笔试题  哈希表(哈希冲突)（OPPO）链表排序  括号匹配（字节） 括号生成：回溯 （远景）  排序算法（OPPO)   堆排序，并分析时间复杂度/建堆+调整（美团/头条）冒泡算法（阿里） 桶排序和跳跃表排序（多益网络）初始化建堆的时间复杂度为O(n)，排序重建堆的时间复杂度为nlog(n)，所以总的时间复杂度为O(n+nlogn)=O(nlogn)。另外堆">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-12T12:30:23.934Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法与数据结构">
+<meta name="twitter:description" content="算法与数据结构​    有的面试会复盘笔试题  哈希表(哈希冲突)（OPPO）链表排序  括号匹配（字节） 括号生成：回溯 （远景）  排序算法（OPPO)   堆排序，并分析时间复杂度/建堆+调整（美团/头条）冒泡算法（阿里） 桶排序和跳跃表排序（多益网络）初始化建堆的时间复杂度为O(n)，排序重建堆的时间复杂度为nlog(n)，所以总的时间复杂度为O(n+nlogn)=O(nlogn)。另外堆">
+  <link rel="canonical" href="http://yoursite.com/2019/09/11/算法与数据结构/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>算法与数据结构 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <link rel="stylesheet" href="/dist/css/share.min.css">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Olivia学习笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/11/算法与数据结构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Olivia_lyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/myavatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">算法与数据结构
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-11 09:41:48" itemprop="dateCreated datePublished" datetime="2019-09-11T09:41:48+08:00">2019-09-11</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-12 20:30:23" itemprop="dateModified" datetime="2020-04-12T20:30:23+08:00">2020-04-12</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法与数据结构/" itemprop="url" rel="index"><span itemprop="name">算法与数据结构</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="算法与数据结构"><a href="#算法与数据结构" class="headerlink" title="算法与数据结构"></a>算法与数据结构</h3><p>​    有的面试会复盘笔试题</p>
+<ol>
+<li><p>哈希表(哈希冲突)（OPPO）链表排序  括号匹配（字节） 括号生成：回溯 （远景）</p>
+</li>
+<li><p>排序算法（OPPO)   堆排序，并分析时间复杂度/建堆+调整（美团/头条）冒泡算法（阿里） 桶排序和跳跃表排序（多益网络）<br>初始化建堆的时间复杂度为O(n)，排序重建堆的时间复杂度为nlog(n)，所以总的时间复杂度为O(n+nlogn)=O(nlogn)。<br>另外堆排序的比较次数和序列的初始状态有关，但只是在序列初始状态为堆的情况下比较次数显著减少，在序列有序或逆序的情况下比较次数不会发生明显变化。</p>
+</li>
+<li><p>B+树  二叉树，包含增删差改 （百度）</p>
+</li>
+<li><p>向量为什么要加倍式扩容（字节）</p>
+</li>
+<li><p>在微博上关注了1k个大v，大v们每人有1w条微博，要想快速的访问前100条，应该怎么做？(排序+堆)   (美团)</p>
+</li>
+<li><p>二叉搜索树的特征，查找和插入的时间复杂度；为什么说二叉搜索树有时会不稳定，如何改进？(可能会退化为链表；改进为平衡二叉查找树) ；AVL树大概的调整过程；(左旋右旋) ； 红黑树的特征以及大概的调整过程；(美团)<br>参考：<br>平衡二叉树，若深度不平衡，类似于单链表，时间复杂度为o(n);<br>深度平衡的情况下，时间复杂度为o(logn);<br>给定值的比较次数等于给定值节点在二叉排序树中的层数。如果二叉排序树是平衡的，则n个节点的二叉排序树的高度为Log2n+1,其查找效率为O(Log2n)，近似于折半查找。如果二叉排序树完全不平衡，则其深度可达到n，查找效率为O(n)，退化为顺序查找。一般的，二叉排序树的查找性能在O(Log2n)到O(n)之间。因此，为了获得较好的查找性能，就要构造一棵平衡的二叉排序树。<br>原文链接：<a href="https://blog.csdn.net/xieyutian1990/article/details/38435619" target="_blank" rel="noopener">https://blog.csdn.net/xieyutian1990/article/details/38435619</a></p>
+</li>
+<li><p>数组中0，1，2分别代表三种颜色的小球，调整数组元素使得相同颜色的小球在一起，要求在时间复杂度为O(n)，不能用额外空间；(双指针)  （拼多多）</p>
+</li>
+<li><p>一个链表，value里面存了公司里所有人的年龄，希望你对这个链表做切分，切分出来的section越多越好，但是有一个条件：同一个年龄的人只允许分配到用一个section中，返回所有section的长度的数组；输入：29 -&gt; 30 -&gt; 31 -&gt; 32 -&gt; 31 -&gt; NULL，输出：[1, 1, 3]；(滑动窗口)  （拼多多）</p>
+</li>
+<li><p>两个并发线程T1和T2，分别只能打印A和B，要求写一段代码，可以一直打印序列”AABBAABB…（远景）</p>
+</li>
+<li><p>有两个很大的文件，如何找出其中相同的行？（阿里）</p>
+</li>
+<li><p>（腾讯）</p>
+<p>布隆过滤器   红黑树性质<br>redis中的数据结构，跳表插入删除过程</p>
+</li>
+<li><p>Leetcode类似题目：</p>
+<ul>
+<li><p>三数之和（leetcode 15） (美团)  </p>
+</li>
+<li><p>如何实现topK（堆）、数组中连续子数组的最大和（dp）、字符串转化为数字（拼多多）</p>
+</li>
+<li><p>两个栈实现一个队列、数据流的中位数、二叉树的直径（华为）</p>
+</li>
+<li><p>双向链表的插入 （海康）</p>
+</li>
+<li><p>字符串中回文子串的数目/dp  给你一个字符串，返回所有它能表示的IP地址；(回溯)   有10亿个数，如何找出其中最小的100个数；(堆)  (头条)</p>
+</li>
+<li><p>重排数组中的元素，使之组合起来能得到一个最大的数字；(重新定义比较器)；</p>
+<p>剪绳子；(dp或者贪心)  （360）</p>
+</li>
+<li><p>找出两个序列中的最长公共子序列；(dp)    （旷世）</p>
+</li>
+<li><p>二叉树的后序遍历，递归和非递归，两个很大的矩阵相乘，如何并行实现？(分块) 最长回文子串？  海量数据排序（堆，归并）（阿里）</p>
+</li>
+<li><p>LRU缓存 （Leetcode146）二叉堆的维护 （腾讯）</p>
+</li>
+<li><p>数组al[0,mid-1]和al[mid,num-1]都分别是有序的，将其merge成有序数组al[0,num-1]，要求空间O(1)，时间O(N)。  （网易互娱）</p>
+</li>
+<li><p>N个人都有一个权重，随机选取m个人。怎么取？ （网易互娱）</p>
+</li>
+<li><p>10万个ip段，每个ip段对应一个城市，给定一个ip，快速找到对应的城市 （网易互娱）</p>
+</li>
+<li><p>每次走一楼或者两楼，到n楼有几种方法；用define写一个结构体类型的偏移地址；KMP算法，dfs（深信服）</p>
+</li>
+<li><p>不用递归实现斐波那契系数；有一个产生n个数的随机函数；请写一个函数ChooseKey，在给定的权重表中，根据”权重”随机抽取一个”字符”并返回  （多益网络）</p>
+</li>
+<li><p>（字节跳动）</p>
+<ol>
+<li><p>从一个二维的字符串数组中，匹配一个小字符串，每次可以从上下左右匹配，但是不能超出数组范围        leetcode：单词搜索</p>
+</li>
+<li><p>给定一条长度为N的绳子，切绳子，求如何切使得每段绳子的长度的乘集最大</p>
+<p> leetcode ：剪绳子</p>
+</li>
+<li><p><a href="https://www.cnblogs.com/xudong-bupt/p/4002765.html" target="_blank" rel="noopener">有序数组每个数平方后，不同数字的个数？O(n)</a> </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">vector</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span>  <span class="title">squreUniqueNum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;vec)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len = vec.size();</span><br><span class="line">	<span class="keyword">if</span> (len &lt; <span class="number">2</span>) <span class="keyword">return</span> len;</span><br><span class="line">	<span class="comment">// 双指针从两端向中间遍历，每次删除绝对值最大的数，并记录下该值用于后续去重</span></span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>, j = len - <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> num = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> pre = <span class="built_in">abs</span>(vec[<span class="number">0</span>]);</span><br><span class="line">	<span class="keyword">while</span> (i &lt;= j) &#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">abs</span>(vec[i]) &gt; <span class="built_in">abs</span>(vec[j])) &#123;</span><br><span class="line">			<span class="keyword">if</span> (pre != <span class="built_in">abs</span>(vec[i])) &#123;   <span class="comment">// 如果未删除</span></span><br><span class="line">				++num;</span><br><span class="line">				pre = vec[i];</span><br><span class="line">			&#125;</span><br><span class="line">			++i;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> (pre != <span class="built_in">abs</span>(vec[j]) ) &#123;   <span class="comment">// 如果未删除</span></span><br><span class="line">				++num;</span><br><span class="line">				pre = vec[j];</span><br><span class="line">			&#125;</span><br><span class="line">			--j;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec&#123;<span class="number">-5</span>,<span class="number">-3</span>,<span class="number">-1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span> num = squreUniqueNum(vec);</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; num &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<pre><code>  4. 只使用加减乘除等基本运算实现正整数的开方（二分）
+
+  5. 有N个台阶，每次只能走一步或两步，先走完全部台阶为获胜，有两个人甲和乙，甲先走，判断在什么情况下甲一定会先到
+
+  6.  假设数组 A 和 B 都是有序的，并且 A 有足够多余的空间可以合并 B。要求不使用额外的空间，把 B 合并进 A 并保证最终的数组有序。
+      例如： A = {-3, 5, INVALID_NUM, 7, INVALID_NUM, 10, INVALID_NUM, 11, INVALID_NUM}，B = {-1, 2, 6, 12}
+      最后：A = {-3, -1, 2, 5, 6, 7, 10, 11, 12}  
+
+  7. 给你一棵二叉树，它的根为 root 。请你删除 1 条边，使二叉树分裂成两棵子树，且它们子树和的乘积尽可能大，返回最大的乘积。 LeetCode 1339
+
+  8. 36进制正整数加法，不允许把36进制数字整体转为10进制数字，计算出10进制累加结果再转回为36进制
+
+- （网易游戏）
+
+  给定n个正整数，如何找出最小的K个正整数
+
+  给定一组整数1000以内，如何高效去除重复的数
+
+  字符串中查找是否有子串，写完以后要求给出测试用例
+
+  面试很常见。常见关于堆的面试：
+  1. 实现一个堆数据结构（插入，删除） 
+  2. 求 top k   eg：leetcode 347  求前 k 大，用小根堆，求前 k 小，用大根堆。面试的时候如果说反了会挂！
+  3. 求中位数    维护最大堆，最小堆
+  4. k 路归并……  建立最小堆，依次输出堆顶元素</code></pre><ul>
+<li><p>（腾讯）</p>
+<p>查找二叉树中第k小的元素 </p>
+<p>判断大小端，int的大端转小端</p>
+<pre><code>去掉字符串开头和末尾的空格
+大数相加
+最长公共子序列LCS
+最小编辑距离
+二叉树中两个节点的最近公共父节点
+数据流的中位数</code></pre></li>
+</ul>
+<pre><code>char a[N]中找出不在char b[M]中的字符，保存在char c[]中 （c语言实现）
+洗牌算法
+反转链表、链表中倒数第k个、
+
+[pow(x, n) o(log(N))实现](https://blog.csdn.net/qq_28114615/article/details/84749629)    分为奇数和偶数两种情况</code></pre><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//priority_queue和sort函数第三个参数重载比较函数写法</span></span><br><span class="line"><span class="comment">// leetcode 23 合并k个排序链表</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 重写仿函数</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">cmp</span>&#123;</span></span><br><span class="line">        <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(ListNode* a, ListNode* b)</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> a-&gt;val &gt; b-&gt;val;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function">ListNode* <span class="title">mergeKLists</span><span class="params">(<span class="built_in">vector</span>&lt;ListNode*&gt;&amp; lists)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 或者用lambda写匿名函数</span></span><br><span class="line">        <span class="comment">// auto cmp = [](ListNode* a, ListNode* b)&#123;</span></span><br><span class="line">        <span class="comment">//     if(a-&gt;val &gt; b-&gt;val) return true;</span></span><br><span class="line">        <span class="comment">//     else return false;</span></span><br><span class="line">        <span class="comment">// &#125;;</span></span><br><span class="line">        <span class="comment">//priority_queue&lt;ListNode*, vector&lt;ListNode*&gt;, decltype(cmp)&gt; que(cmp);</span></span><br><span class="line">        priority_queue&lt;ListNode*, <span class="built_in">vector</span>&lt;ListNode*&gt;, cmp&gt; que;<span class="comment">//注意cmp</span></span><br><span class="line">        <span class="keyword">for</span>(ListNode* <span class="built_in">list</span> : lists)&#123;</span><br><span class="line">           <span class="keyword">if</span>(<span class="built_in">list</span>)&#123;</span><br><span class="line">                que.push(<span class="built_in">list</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode node(0), *head = &amp;node;</span><br><span class="line">        <span class="keyword">while</span>(!que.empty())&#123;</span><br><span class="line">            ListNode* tmp = que.top();</span><br><span class="line">            que.pop();</span><br><span class="line">            head-&gt;next = tmp;</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(head-&gt;next)&#123;</span><br><span class="line">                que.push(head-&gt;next);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 剑指offer 把数组排成最小的数</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">PrintMinNumber</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; numbers)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//使用STL库中的sort()函数，用lambda或者仿函数重载比较器</span></span><br><span class="line">        <span class="built_in">string</span> res;</span><br><span class="line">        <span class="comment">/*auto tmp = [](const int&amp; a, const int&amp; b)&#123;</span></span><br><span class="line"><span class="comment">            return to_string(a) + to_string(b) &lt; to_string(b) + to_string(a);</span></span><br><span class="line"><span class="comment">        &#125;;*/</span></span><br><span class="line">       </span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">tmp</span>&#123;</span></span><br><span class="line">            <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>&amp; a, <span class="keyword">const</span> <span class="keyword">int</span>&amp; b)</span></span>&#123;</span><br><span class="line">                <span class="keyword">return</span> to_string(a) + to_string(b) &lt; to_string(b) + to_string(a);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        sort(numbers.begin(), numbers.end(), tmp());<span class="comment">//注意tmp()</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> num : numbers)&#123;</span><br><span class="line">            res += to_string(num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.cnblogs.com/magisk/p/8809922.html" target="_blank" rel="noopener">bitset</a>   </p>
+<ul>
+<li><p>并查集</p>
+<h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>并查集（Union/Find）从名字可以看出，主要涉及两种基本操作:合并和查找。这说明，初始时并查集中的元素是不相交的，经过一系列的基本操作(Union)，最终合并成一个大的集合。</p>
+<p>而在某次合并之后，有一种合理的需求：某两个元素是否已经处在同一个集合中了？因此就需要Find操作。</p>
+<p>并查集是一种 不相交集合 的数据结构，设有一个动态集合S={s1，s2，s3，…sn}，每个集合通过一个代表来标识，代表 就是动态集合S 中的某个元素。</p>
+<p>比如，若某个元素 x 是否在集合 s1 中(Find操作)，返回集合 s1 的代表元素即可。这样，判断两个元素是否在同一个集合中也是很方便的，只要看find(x) 和 find(y) 是否返回同一个代表即可。</p>
+<p>为什么是动态集合S呢？因为随着Union操作，动态集合S中的子集合个数越来越少。</p>
+<p>数据结构的基本操作决定了它的应用范围，对并查集而言，一个简单的应用就是判断无向图的连通分量个数，或者判断无向图中任何两个顶点是否连通。</p>
+<p><a href="https://blog.csdn.net/u013546077/article/details/64509038" target="_blank" rel="noopener">例题参考</a>  <a href="https://www.cnblogs.com/hapjin/p/5478352.html" target="_blank" rel="noopener">原理及实现</a>  </p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+        
+      
+
+      <div>
+        
+          <div>
+    
+        <div style="text-align:centor;color: #ccc;font-size:14px;">----------------------------------------------------             本文结束 <i class="fa fa-heart"></i>  感谢您的阅读                  -------------------------------------------------</div>
+    
+</div>
+        
+      </div>
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/算法与数据结构/" rel="tag"># 算法与数据结构</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/11/操作系统/" rel="next" title="操作系统">
+                  <i class="fa fa-chevron-left"></i> 操作系统
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/09/11/计算机网络/" rel="prev" title="计算机网络">
+                  计算机网络 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+  <div class="post-spread">
+    
+      <div data-weibo-title="分享到微博" data-qq-title="分享到QQ" data-douban-title="分享到豆瓣" class="social-share" class="share-component" data-disabled="twitter,facebook" data-description="Share.js - 一键分享到微博，QQ空间，腾讯微博，人人，豆瓣">分享到：</div>
+    
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/myavatar.jpg"
+      alt="Olivia_lyy">
+  <p class="site-author-name" itemprop="name">Olivia_lyy</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/YuyiLin-Oliva" title="GitHub &rarr; https://github.com/YuyiLin-Oliva" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法与数据结构"><span class="nav-number">1.</span> <span class="nav-text">算法与数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念"><span class="nav-number">1.0.1.</span> <span class="nav-text">概念</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Olivia_lyy</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+  <script src="/live2d-widget-master/autoload.js"></script>
+  <script src="/dist/js/social-share.min.js"></script>
+</body>
+</html>

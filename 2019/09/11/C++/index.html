@@ -55,18 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="C++基础知识点 纯虚函数与虚函数的区别与作用（OPPO）虚函数的实现；(虚表)（拼多多/网易互娱）  C++中哪些函数不能被声明为虚函数？(普通、内联、构造、友元、静态)    （头条） 12345678910常见的不能声明为虚函数的有普通函数（非成员函数）、静态成员函数、内联成员函数、构造函数和友元函数。以下将分别对这几种情况进行分析。1）普通函数（非成员函数）只能overload（重载），不">
+<meta name="keywords" content="C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2019/08/01/hello-world/index.html">
+<meta property="og:title" content="C++">
+<meta property="og:url" content="http://yoursite.com/2019/09/11/C++/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="C++基础知识点 纯虚函数与虚函数的区别与作用（OPPO）虚函数的实现；(虚表)（拼多多/网易互娱）  C++中哪些函数不能被声明为虚函数？(普通、内联、构造、友元、静态)    （头条） 12345678910常见的不能声明为虚函数的有普通函数（非成员函数）、静态成员函数、内联成员函数、构造函数和友元函数。以下将分别对这几种情况进行分析。1）普通函数（非成员函数）只能overload（重载），不">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-01T08:06:54.181Z">
+<meta property="og:updated_time" content="2020-02-27T10:51:36.073Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-  <link rel="canonical" href="http://yoursite.com/2019/08/01/hello-world/">
+<meta name="twitter:title" content="C++">
+<meta name="twitter:description" content="C++基础知识点 纯虚函数与虚函数的区别与作用（OPPO）虚函数的实现；(虚表)（拼多多/网易互娱）  C++中哪些函数不能被声明为虚函数？(普通、内联、构造、友元、静态)    （头条） 12345678910常见的不能声明为虚函数的有普通函数（非成员函数）、静态成员函数、内联成员函数、构造函数和友元函数。以下将分别对这几种情况进行分析。1）普通函数（非成员函数）只能overload（重载），不">
+  <link rel="canonical" href="http://yoursite.com/2019/09/11/C++/">
 
 
 <script id="page-configurations">
@@ -80,7 +81,7 @@
   };
 </script>
 
-  <title>Hello World | Hexo</title>
+  <title>C++ | Hexo</title>
   
 
 
@@ -247,7 +248,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/01/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/11/C++/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Olivia_lyy">
@@ -261,7 +262,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Hello World
+          <h1 class="post-title" itemprop="name headline">C++
 
             
           </h1>
@@ -278,7 +279,32 @@
                 
               
 
-              <time title="创建时间：2019-08-01 16:06:54" itemprop="dateCreated datePublished" datetime="2019-08-01T16:06:54+08:00">2019-08-01</time>
+              <time title="创建时间：2019-09-11 09:41:48" itemprop="dateCreated datePublished" datetime="2019-09-11T09:41:48+08:00">2019-09-11</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-27 18:51:36" itemprop="dateModified" datetime="2020-02-27T18:51:36+08:00">2020-02-27</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a></span>
+
+                
+                
+              
             </span>
           
 
@@ -301,19 +327,72 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <h3 id="C-基础知识点"><a href="#C-基础知识点" class="headerlink" title="C++基础知识点"></a>C++基础知识点</h3><ol>
+<li><p>纯虚函数与虚函数的区别与作用（OPPO）虚函数的实现；(虚表)（拼多多/网易互娱）</p>
+<ul>
+<li><p>C++中哪些函数不能被声明为虚函数？(普通、内联、构造、友元、静态)    （头条）</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">常见的不能声明为虚函数的有普通函数（非成员函数）、静态成员函数、内联成员函数、构造函数和友元函数。以下将分别对这几种情况进行分析。</span><br><span class="line"><span class="number">1</span>）普通函数（非成员函数）只能overload（重载），不能被override（覆盖），不能被声明为虚函数，因此，编译器会在编译时绑定函数。</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）静态成员函数不能是虚函数，因为静态成员函数对于每个类来说只有一份代码，所有的对象都共享这一份代码，它不归某个对象所有，所以，它也没有动态绑定的必要性。</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）内联成员函数不能是虚函数，因为内联函数本身就是为了在代码中直接展开，减少函数调用花费的代价而设立的，而虚函数是为了在继承后对象能够准确地执行自己的动作，这是不可能统一的。再说，inline函数在编译时被展开，虚函数在运行时才能动态地绑定函数。</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）构造函数之所以不能是虚函数，因为构造函数本来是为了明确初始化对象成员才产生的，然而虚函数主要是为了在不完全了解细节的情况下也能正确处理对象。另外，虚函数是在不同类型的对象产生不同的动作，现在对象还没有产生，如何使用虚函数来完成你想完成的动作？</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）友元函数。C++语言不支持友元函数的继承，对于没有继承特性的函数没有虚函数的说法。友元函数不属于类的成员函数，不能被继承。所以，友元函数不能是虚函数。</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>为什么构造函数不能被声明为虚函数？友元函数可以被声明为虚函数吗？为什么？（头条）</p>
+</li>
+<li><p>基类的虚函数的指针在派生类的虚标中吗？为什么要这样做？(远景)</p>
+</li>
+<li><p>拷贝构造函数和赋值函数。拷贝构造函数有什么缺点 （360）</p>
+</li>
+<li><p>函数重载、函数重写（override）特性；虚函数子类构造析构函数的调用顺序 （腾讯）</p>
+</li>
+</ul>
+<ol start="2">
+<li><p>关键字static的作用（OPPO）</p>
+</li>
+<li><p>智能指针，lambda表达式 四种强制类型转换符（拼多多）类型兼容规则（网易互娱）正则表达式 （腾讯）</p>
+</li>
+<li><p>struct与class、union的区别；struct中的字节对齐机制；C语言如何实现面向对象编程；（拼多多）</p>
+</li>
+<li><p>map, unordered_map的区别； vector的push_back()方法实现；左值与右值分别指什么（网易互娱）</p>
+</li>
+<li><p>malloc(0)会怎么样 （华为） new和malloc delete和free的区别？ 如何实现多态？  （远景）</p>
+<ul>
+<li>free()函数入参是一个void*指针，是如何知道被指向的大小的？ （腾讯）</li>
+</ul>
+</li>
+<li><p>vector和list中，删除末尾的元素，其指针和迭代器如何变化？若删除的是中间的元素呢？  （阿里）STL中Vector、List和Map底层实现原理（腾讯）</p>
+</li>
+<li><p>c++种常见的stl库中的vector。它是是一个可变数组。但它实际是用一个固定的数组储存的，并且用size和capacity来计数，size表示储存元素的大小，capacity表示数组的大小，当size&gt;=capacity时会重新申请内存并释放旧的内存，拷贝是通过浅拷贝实现的，以1.5-2倍的大小扩容，而为什么以这个倍数也可以通过数学推导算出来…详细的可以具体百度 </p>
+<ul>
+<li>Vector的扩容，如果数据量很多扩容会怎么样，怎么设计更好的（360）</li>
+</ul>
+</li>
+<li><p>几个字符串的函数，如内存拷贝函数；内存泄漏怎么来的，如何解决；内存池怎么实现；深拷贝浅拷贝等,  内存拷贝函数memcpy函数实现  (奇安信)</p>
+</li>
+<li><p>空类的sizeof大小； 类A空，类B继承A，B中有一个虚函数，sizeof大小；类A空，类B中有一个虚函数和一个类A对象，sizeof大小   （360）</p>
+</li>
+<li><p>函数重载。如果返回值不同或者参数位置不同是否是重载？虚函数是否可以是内联函数？函数指针和泛函数？（360）</p>
+</li>
+<li><p>编译性和解释性语言的区别； 对象的生命周期（多益网络）C++对象内存布局（腾讯）</p>
+</li>
+<li><p>局部变量、全局变量、常量还有malloc开辟的内存变量分别放在哪个区；main函数执行前后会执行什么代码（网易游戏）</p>
+</li>
+<li><p>c/c++程序如何控制执行到某个特定内存地址？什么是迭代器失效？</p>
+<p>C++模板方面的问题，先给了三个重载函数（普通函数、函数模板、特例化的函数模板），根据入参确定调用的函数； </p>
+<p>类型萃取的问题，如何使用模板来判断入参是一个类对象指针，还是一个内置类型指针。  </p>
+<p>inline的作用；C++11新特性；explain关键字（腾讯）</p>
+</li>
+<li><p>size_t、ssize_t、int、long</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span>(<span class="number">32</span>位)/<span class="keyword">long</span>(<span class="number">64</span>位) size_t  无符号整型</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span>(<span class="number">32</span>位)/<span class="keyword">long</span>(<span class="number">64</span>位) ssize_t      有符号整型</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+
+
+</li>
+</ol>
 
     </div>
 
@@ -321,6 +400,16 @@
     
     
       
+  <div class="popular-posts-header">相关文章推荐</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\2020\02\21\C++基础\" rel="bookmark">C++基础</a></div>
+      
+    </li>
+  
+  </ul>
 
         
       
@@ -336,11 +425,24 @@
       </div>
 
       <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/C/" rel="tag"># C++</a>
+            
+          </div>
+        
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/11/数据库/" rel="next" title="数据库">
+                  <i class="fa fa-chevron-left"></i> 数据库
+                </a>
               
             </div>
 
@@ -348,8 +450,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2019/08/01/面经汇总/" rel="prev" title="面经题目汇总">
-                  面经题目汇总 <i class="fa fa-chevron-right"></i>
+                <a href="/2020/02/21/C++基础/" rel="prev" title="C++基础">
+                  C++基础 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -502,7 +604,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#C-基础知识点"><span class="nav-number">1.</span> <span class="nav-text">C++基础知识点</span></a></li></ol></div>
             
 
           </div>

@@ -55,18 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="1. 构造函数能否为虚函数，析构函数呢? 构造函数：  存储空间角度：虚函数对应一个vtable，vtable存储于对象的内存空间 若构造函数是虚的，则需要通过 vtable来调用，若对象还未实例化，即内存空间还没有，无法找到vtable  使用角度：虚函数主要用于在信息不全的情况下，能使重载的函数得到对应的调用。 构造函数本身就是要初始化实例，在对象生命期只执行一次，不是对象的动态行为，也没有太">
+<meta name="keywords" content="C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2019/08/01/hello-world/index.html">
+<meta property="og:title" content="C++基础">
+<meta property="og:url" content="http://yoursite.com/2020/02/21/C++基础/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="1. 构造函数能否为虚函数，析构函数呢? 构造函数：  存储空间角度：虚函数对应一个vtable，vtable存储于对象的内存空间 若构造函数是虚的，则需要通过 vtable来调用，若对象还未实例化，即内存空间还没有，无法找到vtable  使用角度：虚函数主要用于在信息不全的情况下，能使重载的函数得到对应的调用。 构造函数本身就是要初始化实例，在对象生命期只执行一次，不是对象的动态行为，也没有太">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-01T08:06:54.181Z">
+<meta property="og:updated_time" content="2020-03-25T10:10:01.355Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-  <link rel="canonical" href="http://yoursite.com/2019/08/01/hello-world/">
+<meta name="twitter:title" content="C++基础">
+<meta name="twitter:description" content="1. 构造函数能否为虚函数，析构函数呢? 构造函数：  存储空间角度：虚函数对应一个vtable，vtable存储于对象的内存空间 若构造函数是虚的，则需要通过 vtable来调用，若对象还未实例化，即内存空间还没有，无法找到vtable  使用角度：虚函数主要用于在信息不全的情况下，能使重载的函数得到对应的调用。 构造函数本身就是要初始化实例，在对象生命期只执行一次，不是对象的动态行为，也没有太">
+  <link rel="canonical" href="http://yoursite.com/2020/02/21/C++基础/">
 
 
 <script id="page-configurations">
@@ -80,7 +81,7 @@
   };
 </script>
 
-  <title>Hello World | Hexo</title>
+  <title>C++基础 | Hexo</title>
   
 
 
@@ -247,7 +248,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/01/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/21/C++基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Olivia_lyy">
@@ -261,7 +262,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Hello World
+          <h1 class="post-title" itemprop="name headline">C++基础
 
             
           </h1>
@@ -278,7 +279,32 @@
                 
               
 
-              <time title="创建时间：2019-08-01 16:06:54" itemprop="dateCreated datePublished" datetime="2019-08-01T16:06:54+08:00">2019-08-01</time>
+              <time title="创建时间：2020-02-21 12:09:33" itemprop="dateCreated datePublished" datetime="2020-02-21T12:09:33+08:00">2020-02-21</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-25 18:10:01" itemprop="dateModified" datetime="2020-03-25T18:10:01+08:00">2020-03-25</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a></span>
+
+                
+                
+              
             </span>
           
 
@@ -301,19 +327,43 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h3 id="1-构造函数能否为虚函数，析构函数呢"><a href="#1-构造函数能否为虚函数，析构函数呢" class="headerlink" title="1. 构造函数能否为虚函数，析构函数呢?"></a>1. 构造函数能否为虚函数，析构函数呢?</h3><ul>
+<li><p>构造函数：</p>
+<ul>
+<li><p>存储空间角度：虚函数对应一个vtable，vtable存储于对象的内存空间</p>
+<p>若构造函数是虚的，则需要通过 vtable来调用，若对象还未实例化，即内存空间还没有，无法找到vtable</p>
+</li>
+<li><p>使用角度：虚函数主要用于在信息不全的情况下，能使重载的函数得到对应的调用。</p>
+<p>构造函数本身就是要初始化实例，在对象生命期只执行一次，不是对象的动态行为，也没有太大的必要成为虚函数</p>
+</li>
+<li><p>从实际含义上看，在调用构造函数时还不能确定对象的真实类型（因为子类会调父类的构造函数) </p>
+</li>
+</ul>
+</li>
+<li><p>析构函数：</p>
+<ul>
+<li>析构函数可以为虚函数，并且一般情况下基类析构函数要定义为虚函数。</li>
+<li>只有在基类的析构函数定义为虚函数时，基类指针可以指向派生类的对象（多态性），调用delete操作符销毁指向该对象的基类指针时，就会调用该指针指向的派生类析构函数，而派生类的析构函数又自动调用基类的析构函数，使整个派生类的对象完全被释放。</li>
+<li>如果不需要基类对派生类及对象进行操作,则不能定义虚函数,因为这样会增加内存开销。当类里面有定义虚函数的时候,编译器会给类添加一个虚函数表,里面来存放虚函数指针,这样就会增加类的存储空间。所以,只有当一个类被用来作为基类的时候,并且有使用到基类指针操作派生类的情况时，才把析构函数写成虚函数。</li>
+<li>析构函数可以是纯虚函数，含有纯虚函数的类是抽象类，此时不能被实例化。但派生类中可以根据自身需求重新改写基类中的纯虚函数。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-构造函数和析构函数中可以调用虚函数吗"><a href="#2-构造函数和析构函数中可以调用虚函数吗" class="headerlink" title="2. 构造函数和析构函数中可以调用虚函数吗?"></a>2. 构造函数和析构函数中可以调用虚函数吗?</h3><p>可以，但是没有动态绑定的效果，所以最好不要在析构和构造函数中调用。</p>
+<ul>
+<li><p>构造函数：</p>
+<p>如果有继承，构造函数会先调用父类构造函数，而如果构造函数中有虚函数，此时子类还没有构造，所以此时的对象还是父类的，不会触发多态。更容易记的是基类构造期间，virtual函数不是virtual函数。</p>
+</li>
+<li><p>析构函数：</p>
+<p>析构函数也是一样，子类先进行析构，这时，如果有virtual函数的话，子类的内容已经被析构了，C++会视其父类，执行父类的virtual函数。</p>
+</li>
+</ul>
+<p><a href="https://blog.csdn.net/BillCYJ/article/details/78985895" target="_blank" rel="noopener">map与unordered_map的区别</a> </p>
+<p><a href="https://blog.csdn.net/wozhengtao/article/details/52187484" target="_blank" rel="noopener">RAII机制</a>   <a href="http://blog.sina.com.cn/s/blog_69d39c6e0102woel.html" target="_blank" rel="noopener">c语言大小端转化</a>  <a href="https://blog.csdn.net/u013400743/article/details/50937313" target="_blank" rel="noopener">结构体和联合体字节对齐</a><br>eg: struct内存对齐讲一讲<br>作者：龙少~<br>链接：<a href="https://www.nowcoder.com/discuss/121346?type=post&amp;order=time&amp;pos=&amp;page=1" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/121346?type=post&amp;order=time&amp;pos=&amp;page=1</a><br>来源：牛客网</p>
+<p>内存对齐的原因是：第一：部分硬件平台不支持任意地址的内存访问，必须要对齐访问，第二：提高CPU性能。对齐规则：第一：按照最大字节对齐，第二：前面的地址是后面地址的整数倍，第三：如果指定了#pragma pack(n)编译选型，按照n个字节对齐</p>
+<p><a href="https://blog.csdn.net/weixin_39554266/article/details/82835478" target="_blank" rel="noopener">fork vfork 写时复制</a>   <a href="https://blog.csdn.net/kang___xi/article/details/80210717" target="_blank" rel="noopener">静态链接和动态链接</a>  </p>
+<p><a href="http://m.blog.chinaunix.net/uid-20775448-id-3622472.html" target="_blank" rel="noopener">mtrace, MALLOC_CHECK_宏跟踪malloc内存泄漏</a>   </p>
+<p><a href="https://www.cnblogs.com/wu-xiao-facebook/p/11606383.html" target="_blank" rel="noopener">priority_queue, lambda</a> leetcode 23,148</p>
 
     </div>
 
@@ -321,6 +371,16 @@
     
     
       
+  <div class="popular-posts-header">相关文章推荐</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\2019\09\11\C++\" rel="bookmark">C++</a></div>
+      
+    </li>
+  
+  </ul>
 
         
       
@@ -336,21 +396,30 @@
       </div>
 
       <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/C/" rel="tag"># C++</a>
+            
+          </div>
+        
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
+                <a href="/2019/09/11/C++/" rel="next" title="C++">
+                  <i class="fa fa-chevron-left"></i> C++
+                </a>
+              
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/08/01/面经汇总/" rel="prev" title="面经题目汇总">
-                  面经题目汇总 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -502,7 +571,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-构造函数能否为虚函数，析构函数呢"><span class="nav-number">1.</span> <span class="nav-text">1. 构造函数能否为虚函数，析构函数呢?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-构造函数和析构函数中可以调用虚函数吗"><span class="nav-number">2.</span> <span class="nav-text">2. 构造函数和析构函数中可以调用虚函数吗?</span></a></li></ol></div>
             
 
           </div>
